@@ -6,7 +6,6 @@ import 'package:radiosalvaterrafm/telas/user.dart';
 import 'package:flutter_radio/flutter_radio.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
-
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_radio/flutter_radio.dart';
-import 'package:responsive_widgets/responsive_widgets.dart';
 ////////////////HOMEPAGE////////////////////////////
 class Principal extends StatefulWidget {
   @override
@@ -22,9 +21,8 @@ class _PrincipalState extends State<Principal> {
       children: <Widget>[
         ClipPath(
             clipper: MyClipper(),
-            child:ContainerResponsive(
-              heightResponsive: true,
-              height: ScreenUtil().setHeight(350),
+            child:Container(
+              height: 350,
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -64,14 +62,14 @@ class _PrincipalState extends State<Principal> {
                 child:FlatButton(
                     onPressed: (){
                       setState(() {
+                        FlutterRadio.playOrPause(url: streamUrl);
+                        
                         if(clicks == 0){
                           estado = "Parar";
-                          FlutterRadio.play(url: streamUrl);
                           clicks++;
                           playing = false;
                         }else if(clicks == 1){
                           estado = "Reproduzir";
-                          FlutterRadio.pause(url: streamUrl);
                           clicks = 0;
                           playing = true;
                         }
