@@ -22,7 +22,7 @@ class _PrincipalState extends State<Principal> {
         ClipPath(
             clipper: MyClipper(),
             child:Container(
-              height: 350,
+              height: MediaQuery.of(context).size.height*0.57,
               width: double.infinity,
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -43,8 +43,8 @@ class _PrincipalState extends State<Principal> {
               ],),
             )
         ),
-        ////////////FIM PARTE DE CIMA/////////////////////////////
-
+        ////////////FIM PARTE DE CIMA//////////////////////////
+        
         ////////////////////BOTAO////////////////////
         Padding(padding: EdgeInsets.all(60),
             child:Container(
@@ -63,7 +63,6 @@ class _PrincipalState extends State<Principal> {
                     onPressed: (){
                       setState(() {
                         FlutterRadio.playOrPause(url: streamUrl);
-                        
                         if(clicks == 0){
                           estado = "Parar";
                           clicks++;

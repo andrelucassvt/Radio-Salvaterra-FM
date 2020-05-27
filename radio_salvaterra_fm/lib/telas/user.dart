@@ -95,7 +95,7 @@ class _UserState extends State<User> {
           Container(
             padding: EdgeInsets.only(top: 12),
             width: double.infinity,
-            height: 300,
+            height: MediaQuery.of(context).size.height*0.5,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
