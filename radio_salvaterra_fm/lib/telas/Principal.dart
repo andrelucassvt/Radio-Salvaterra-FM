@@ -11,7 +11,8 @@ bool playing = true;
 class _PrincipalState extends State<Principal> {
   static const streamUrl =
       "http://ia802708.us.archive.org/3/items/count_monte_cristo_0711_librivox/count_of_monte_cristo_001_dumas.mp3";
-   
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -89,7 +90,7 @@ class _PrincipalState extends State<Principal> {
         ),
         //////////////FIM BOTAO//////////////
         Container(
-          padding: EdgeInsets.fromLTRB(10, 0, 10, 2),
+          padding: EdgeInsets.only(bottom: 3),
           alignment: Alignment.bottomRight,
           child:IconButton(icon: Icon(Icons.info_outline),
           onPressed: (){

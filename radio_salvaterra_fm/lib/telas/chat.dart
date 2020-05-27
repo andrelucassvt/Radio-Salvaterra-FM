@@ -238,6 +238,7 @@ class _TextComponeteState extends State<TextComponete> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 8),
+      height: 51,
       child:Row(children: <Widget>[
         //Botão da camera
         IconButton(
@@ -252,6 +253,9 @@ class _TextComponeteState extends State<TextComponete> {
         //TextFild
         Expanded(
           child: TextField(
+            keyboardType: TextInputType.multiline,
+            maxLines: null,
+            maxLength: 200,
             controller: _controller,
             decoration: InputDecoration.collapsed(
               hintText: "Enviar uma mensagem"),
