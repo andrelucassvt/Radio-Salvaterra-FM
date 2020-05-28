@@ -1,13 +1,14 @@
-import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:radiosalvaterrafm/banco/bancoPhoto.dart';
 import 'package:radiosalvaterrafm/googleSign/sign.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
+import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User extends StatefulWidget {
@@ -24,17 +25,11 @@ class _UserState extends State<User> {
 
   final String url =
       'https://thumbs.dreamstime.com/b/user-icon-flat-member-service-46707697.jpg';
+
   File _image;
-
   File _imageTemp;
-
-  void pegarImagemGaleria() async {
-    _imageTemp = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setState(() {
-      _image = _imageTemp;
-    });
-  }
-
+  String _editImage = "";
+  Dados _editedDados;
   //Firebase///
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -42,7 +37,7 @@ class _UserState extends State<User> {
   FirebaseUser _currentUser;
   bool _isloading = false;
 
-
+  
   @override
   void initState() {
     super.initState();
@@ -78,8 +73,16 @@ class _UserState extends State<User> {
       return null;
     }
   }
+  void pegarImagemGaleria() async {
+     await ImagePicker.pickImage(source: ImageSource.gallery).then((file){
+      if(file == null) return;
+      setState(() {
+      _editedDados.photo = file.path;
+    });
+     });
+  }
+
   //Firebase////////
-  
   @override
   Widget build(BuildContext context) {
     if (_currentUser != null) {
@@ -139,41 +142,20 @@ class _UserState extends State<User> {
                         )),
                       ),
                       //Imagem, parte importante
-                      Container(
+                      Padding(padding: EdgeInsets.fromLTRB(0, 5, MediaQuery.of(context).size.width/3, 2),
+                      child:Container(
                         width: 120,
                         height: 120,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.fill,
-
-                              image: this._image != null ?
-                              FileImage(_image) :
+                              image: _editedDados.photo != null ?
+                              FileImage(File(_editedDados.photo)):
                               NetworkImage(url)
-
                           ),
-                        ),
-                      ),
-                      ////////
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20),
-                        child: SingleChildScrollView(child: Column(
-                          children: <Widget>[
-                            IconButton(
-                              icon: Icon(Icons.edit,),
-                              onPressed: () {},
-                            ),
-                            Text(
-                              'Editar',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(
-                              'Nome',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                          ],
                         )),
-                      )
+                      ),
                     ],
                   )),
                   Padding(
@@ -254,7 +236,3 @@ class _UserState extends State<User> {
     }
   }
 }
-
-
-
-
