@@ -12,11 +12,12 @@ import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User extends StatefulWidget {
-  User({Key key, this.title,this.data,this.mine}) : super(key: key);
+  User({Key key, this.title,this.data,this.mine,this.dados}) : super(key: key);
 
   final String title;
   final Map<String, dynamic> data;
   final bool mine;
+  final Dados dados;
   @override
   _UserState createState() => _UserState();
 }
@@ -46,6 +47,11 @@ class _UserState extends State<User> {
         _currentUser = user;
       });
     });
+    if(widget.dados == null){
+      _editedDados = Dados();
+    } else {
+      _editedDados = Dados.fromMap(widget.dados.toMap());
+    }
   }
 
   Future<FirebaseUser> _getUser() async {

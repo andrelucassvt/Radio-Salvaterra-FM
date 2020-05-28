@@ -93,7 +93,7 @@ class Dados{
 
 int id;
 String photo;
-
+Dados();
   Dados.fromMap(Map map){
     id = map[idColuna];
     photo = map[photoColuna];
