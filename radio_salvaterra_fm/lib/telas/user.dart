@@ -3,21 +3,20 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:radiosalvaterrafm/banco/bancoPhoto.dart';
 import 'package:radiosalvaterrafm/googleSign/sign.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:path/path.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class User extends StatefulWidget {
-  User({Key key, this.title,this.data,this.mine,this.dados}) : super(key: key);
+  User({Key key, this.title,this.data,this.mine}) : super(key: key);
 
   final String title;
   final Map<String, dynamic> data;
   final bool mine;
-  final Dados dados;
   @override
   _UserState createState() => _UserState();
 }
@@ -28,11 +27,11 @@ class _UserState extends State<User> {
       'https://thumbs.dreamstime.com/b/user-icon-flat-member-service-46707697.jpg';
 
   File _image;
-  File _imageTemp;
+  String _imagemPath;
   String _editImage = "";
-  Dados _editedDados;
   //Firebase///
   final GoogleSignIn googleSignIn = GoogleSignIn();
+  var firebaseAuth = FirebaseAuth.instance;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   FirebaseUser _currentUser;
@@ -42,16 +41,12 @@ class _UserState extends State<User> {
   @override
   void initState() {
     super.initState();
+    loading();
     FirebaseAuth.instance.onAuthStateChanged.listen((user) {
       setState(() {
         _currentUser = user;
       });
     });
-    if(widget.dados == null){
-      _editedDados = Dados();
-    } else {
-      _editedDados = Dados.fromMap(widget.dados.toMap());
-    }
   }
 
   Future<FirebaseUser> _getUser() async {
@@ -79,15 +74,29 @@ class _UserState extends State<User> {
       return null;
     }
   }
+  
+
+  
+
   void pegarImagemGaleria() async {
-     await ImagePicker.pickImage(source: ImageSource.gallery).then((file){
-      if(file == null) return;
-      setState(() {
-      _editedDados.photo = file.path;
-    });
+     var _imageTemp = await ImagePicker.pickImage(source: ImageSource.gallery);
+     setState(() {
+       _image = null;
+       _image = _imageTemp;
+       salvarImagem(_image.path);
      });
   }
+  void salvarImagem(path)async{
+    SharedPreferences saveImage = await SharedPreferences.getInstance();
+    saveImage.setString('imagemPath', path);
 
+  }
+  void loading()async{
+     SharedPreferences saveImage = await SharedPreferences.getInstance();
+     setState(() {
+            _imagemPath = saveImage.getString('imagemPath');
+     });
+  }
   //Firebase////////
   @override
   Widget build(BuildContext context) {
@@ -127,7 +136,7 @@ class _UserState extends State<User> {
                         padding: const EdgeInsets.only(left: 12),
                         child: SingleChildScrollView(child: Column(
                           children: <Widget>[
-                            IconButton(
+                           IconButton(
                               icon: Icon(Icons.edit,),
                               onPressed: () {
                                 pegarImagemGaleria();
@@ -148,20 +157,37 @@ class _UserState extends State<User> {
                         )),
                       ),
                       //Imagem, parte importante
-                      Padding(padding: EdgeInsets.fromLTRB(0, 5, MediaQuery.of(context).size.width/3, 2),
-                      child:Container(
+                     
+                    _imagemPath != null ? 
+                     Padding(padding: EdgeInsets.fromLTRB(0, 5, MediaQuery.of(context).size.width/3, 2),
+                       child:Container(
                         width: 120,
                         height: 120,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: _editedDados.photo != null ?
-                              FileImage(File(_editedDados.photo)):
+                              image: FileImage(File(_imagemPath))
+                          ),
+                        )),
+                     ):
+                     Padding(padding: EdgeInsets.fromLTRB(0, 5, MediaQuery.of(context).size.width/3, 2),
+                       child:Container(
+                        width: 120,
+                        height: 120,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: _image != null ?
+                              FileImage(_image)
+                              :
                               NetworkImage(url)
                           ),
                         )),
-                      ),
+                     )
+                      
+                    
                     ],
                   )),
                   Padding(

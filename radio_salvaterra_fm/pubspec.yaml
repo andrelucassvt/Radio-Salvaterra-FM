@@ -34,7 +34,7 @@ dependencies:
   firebase_storage: ^3.1.1
   firebase_auth: ^0.15.3
   flutter_radio: ^0.1.8
-  sqflite: ^1.1.5
+  shared_preferences: ^0.5.7
   url_launcher: ^5.0.2
 
 
@@ -87,3 +87,4 @@ flutter:
   assets:
   - 'Imagens/Salvaterra.png'
   - 'Imagens/logoGoogle.png'
+  - 'Imagens/facebookLogo.png'
