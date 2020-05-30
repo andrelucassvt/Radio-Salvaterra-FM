@@ -99,7 +99,7 @@ class _PrincipalState extends State<Principal> {
               insetPadding: EdgeInsets.fromLTRB(50, 200, 50, 200),
               title: Text("Funcionamento:"),
               content: Column(children: <Widget>[
-                Text("Das 06:00h às 22:00h",style: TextStyle(color: Colors.red),),
+                Text("Das 06:00h às 23:00h",style: TextStyle(color: Colors.red),),
                 Text("*Todos os dias*")
               ],),
               actions: <Widget>[

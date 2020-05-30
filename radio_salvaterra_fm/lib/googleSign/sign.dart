@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter_auth_buttons/flutter_auth_buttons.dart';
 
 
 class SignGoogle extends StatefulWidget {
@@ -66,31 +67,18 @@ class _SignGoogleState extends State<SignGoogle> {
       ),
 
 
-      body: Column(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
+      body: Column(mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
 
-          Padding(padding: EdgeInsets.all(65),
-            child:Card(
-              color: Colors.white,
-              elevation: 10,
-              child: Container(
-                height: 50,
-                width: 350,
-                child: InkWell(
-                  onTap: (){
-                    setState(() {
-                      _getUser();
-                    });
-                  },
-                  child: Row(
-                    children: <Widget>[
-                      Image.asset('Imagens/logoGoogle.png'),
-                      Text("Entre com o Google",style: TextStyle(color: Colors.black),)
-                    ],),
-                ),
-                
-              ) ,
-            )
-          )
+        Center(
+          child:GoogleSignInButton(
+            onPressed: () {
+              _getUser();
+            },
+            text: "Entre com o Google", 
+            darkMode: true,
+            splashColor: Colors.white, 
+          )),
 
         ],),
     );

@@ -6,18 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
 
-
+FirebaseUser _currentUser;
 class Chat extends StatefulWidget {
+
+
   @override
   _ChatState createState() => _ChatState();
 }
-
 class _ChatState extends State<Chat> {
-
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  FirebaseUser _currentUser;
   bool _isloading = false;
 
   @override
@@ -56,7 +55,9 @@ class _ChatState extends State<Chat> {
     }
   }
 
-  void _sendMessage({String text, File image}) async{
+
+
+  Future _sendMessage({String text, File image}) async{
     final FirebaseUser user = await _getUser();
 
     if(user == null){
@@ -68,10 +69,18 @@ class _ChatState extends State<Chat> {
       );
     }
 
+    String img;
+    DocumentSnapshot documentSnapshot =
+     await Firestore.instance.collection('Perfil').document(_currentUser.uid).get();
+    try{
+      img = documentSnapshot.data['FotoPerfil'];
+    }catch(e){
+      img = 'https://thumbs.dreamstime.com/b/user-icon-flat-member-service-46707697.jpg';
+    }
     Map<String, dynamic> data = {
       "uid" : user.uid,
       "sendName": user.displayName,
-      "sendPhotourl": user.photoUrl,
+      "sendPhotourl": img,
       "Time": Timestamp.now()
     };
 
@@ -95,7 +104,6 @@ class _ChatState extends State<Chat> {
     }
 
     if(text != null) data['Texto'] = text;
-  
     Firestore.instance.collection("Mensagens").add(data);
   }
 
@@ -161,13 +169,14 @@ class _ChatState extends State<Chat> {
 }
 
 //Chat de mensagem
-class ChatMessage extends StatelessWidget {
+class ChatMessage extends StatelessWidget  {
 
   ChatMessage(this.data, this.mine);
 
   final Map<String, dynamic> data;
   final bool mine;
-
+ 
+  
   @override
   Widget build(BuildContext context) {
     return Container(

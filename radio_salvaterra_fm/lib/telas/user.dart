@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,9 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:radiosalvaterrafm/googleSign/sign.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:radiosalvaterrafm/telas/chat.dart';
 import 'dart:io';
-import 'package:path/path.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User extends StatefulWidget {
@@ -52,7 +52,7 @@ class _UserState extends State<User> {
   Future<FirebaseUser> _getUser() async {
     if (_currentUser != null) return _currentUser;
 
-
+    
     try {
       final GoogleSignInAccount googleSignInAccount = await googleSignIn
           .signIn();
@@ -75,15 +75,32 @@ class _UserState extends State<User> {
     }
   }
   
+  Future _salvarBD(File imageDB)async{
 
+      StorageUploadTask task = FirebaseStorage.instance.ref().child('uid').child(
+       DateTime.now().millisecondsSinceEpoch.toString()
+      ).putFile(imageDB);
+
+      StorageTaskSnapshot tasksnapshot = await task.onComplete;
+      String url2 = await tasksnapshot.ref.getDownloadURL();
+      
+      Firestore.instance.collection('Perfil').document(_currentUser.uid).setData({
+        'FotoPerfil': url2
+        });
+      
+  }
   
-
   void pegarImagemGaleria() async {
+     _image = null;
      var _imageTemp = await ImagePicker.pickImage(source: ImageSource.gallery);
      setState(() {
-       _image = null;
        _image = _imageTemp;
+       if(_image == null){
+
+       }else{
        salvarImagem(_image.path);
+       _salvarBD(_image);
+       }
      });
   }
   void salvarImagem(path)async{
