@@ -16,7 +16,6 @@ class Chat extends StatefulWidget {
 class _ChatState extends State<Chat> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   bool _isloading = false;
 
   @override
@@ -57,7 +56,7 @@ class _ChatState extends State<Chat> {
 
 
 
-  Future _sendMessage({String text, File image}) async{
+  Future<Null> _sendMessage({String text, File image}) async{
     final FirebaseUser user = await _getUser();
 
     if(user == null){
@@ -81,7 +80,7 @@ class _ChatState extends State<Chat> {
       "uid" : user.uid,
       "sendName": user.displayName,
       "sendPhotourl": img,
-      "Time": Timestamp.now()
+      "Time": DateTime.now().millisecondsSinceEpoch 
     };
 
     if(image != null){
@@ -111,28 +110,13 @@ class _ChatState extends State<Chat> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      
+      appBar: AppBar(
+        title: Text("CHAT SALVATERRA FM",style: TextStyle(color: Colors.white),),
+        backgroundColor: Colors.red,
+        centerTitle: true,
+      ),
+
       body: Column(children: <Widget>[
-       Container(
-              height: 80,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    colors: [
-                      Color(0xFFF44336),
-                      Color(0xFFFFC107),
-                    ]
-                ),
-              ),
-              child: Padding(
-                padding: EdgeInsets.fromLTRB(0, 35.0, 0, 5.0),
-                child:Text("CHAT SALVATERRA FM",
-                style: TextStyle(
-                  fontSize: 20,
-                   ),
-                textAlign: TextAlign.center,
-              ),)
-              ),
         Expanded(
           child:StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance.collection("Mensagens").orderBy("Time").snapshots(),
@@ -175,19 +159,20 @@ class ChatMessage extends StatelessWidget  {
 
   final Map<String, dynamic> data;
   final bool mine;
- 
   
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: Row(children: <Widget>[
         !mine ?
-        Padding(padding: const EdgeInsets.only(right: 16),
-        child:  CircleAvatar(
-          backgroundImage: NetworkImage(data["sendPhotourl"]),
-        ),
-        ): Container(),
+        Padding(
+          padding: const EdgeInsets.only(right: 16),
+            child:  CircleAvatar(
+                backgroundImage: NetworkImage(data["sendPhotourl"]),
+                  ),)
+        : 
+        Container(),
        
         Expanded(
           child: Column(
@@ -197,7 +182,6 @@ class ChatMessage extends StatelessWidget  {
             Text(data["sendName"],
             style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),
             ),
-
             data["imageURL"] != null ?
               Image.network(data["imageURL"],width: 250,)
             :
@@ -209,11 +193,13 @@ class ChatMessage extends StatelessWidget  {
           ],)
           ),
           mine ?
-          Padding(padding: const EdgeInsets.only(left: 16),
-          child:  CircleAvatar(
-            backgroundImage: NetworkImage(data["sendPhotourl"]),
-          ),
-        ): Container(),
+         Padding(
+          padding: const EdgeInsets.only(left: 16),
+            child:  CircleAvatar(
+                backgroundImage: NetworkImage(data["sendPhotourl"]),
+                  ),)
+          :
+          Container(),
       ],),
     );
   }
@@ -233,7 +219,7 @@ class TextComponete extends StatefulWidget {
 
 class _TextComponeteState extends State<TextComponete> {
    bool _isCompose = false;
-
+    var _imageTemp2;
    final TextEditingController _controller = TextEditingController();
 
    void reset(){
@@ -251,11 +237,41 @@ class _TextComponeteState extends State<TextComponete> {
       child:Row(children: <Widget>[
         //Botão da camera
         IconButton(
-          icon: Icon(Icons.photo_camera),
+          icon: Icon(Icons.camera),
           onPressed: ()async{
-            final File image = await ImagePicker.pickImage(source: ImageSource.camera);
-            if(image == null)return;
-            widget.sendMessage(image: image);
+            final File pegarImagem  =  await showDialog<File>(
+                  context: context,
+                  builder: (context) => SimpleDialog(
+                    children: <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.camera_alt),
+                        title: Text("Câmera"),
+                        onTap:()async{
+                           _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.camera,
+                            imageQuality: 35,
+                            maxHeight: 640,
+                            maxWidth: 480
+                           );
+                           Navigator.pop(context, _imageTemp2);
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(Icons.image),
+                        title: Text("Galeria"),
+                        onTap:()async{
+                           _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.gallery,
+                            imageQuality: 35,
+                            maxHeight: 640,
+                            maxWidth: 480
+                           );
+                            Navigator.pop(context, _imageTemp2);
+                        },
+                      )
+                    ],
+                  ),
+                );
+            if(_imageTemp2 == null)return;
+            widget.sendMessage(image: _imageTemp2);
 
           }
           ),

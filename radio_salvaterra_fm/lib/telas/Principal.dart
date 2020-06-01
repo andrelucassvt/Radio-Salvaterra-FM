@@ -68,6 +68,12 @@ class _PrincipalState extends State<Principal> {
                           estado = "Parar";
                           clicks++;
                           playing = false;
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              duration: Duration(seconds: 3),
+                              backgroundColor: Colors.amber,
+                              content: Text("Conectando ao servidor",style: TextStyle(color: Colors.red),
+                          )));
                         }else if(clicks == 1){
                           estado = "Reproduzir";
                           clicks = 0;

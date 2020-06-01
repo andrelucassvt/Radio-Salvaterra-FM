@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:radiosalvaterrafm/googleSign/sign.dart';
+import 'package:radiosalvaterrafm/Widgets/sign.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:radiosalvaterrafm/telas/chat.dart';
@@ -25,7 +25,7 @@ class _UserState extends State<User> {
 
   final String url =
       'https://thumbs.dreamstime.com/b/user-icon-flat-member-service-46707697.jpg';
-
+  String img;
   File _image;
   String _imagemPath;
   String _editImage = "";
@@ -75,7 +75,7 @@ class _UserState extends State<User> {
     }
   }
   
-  Future _salvarBD(File imageDB)async{
+  Future<Null> _salvarBD(File imageDB)async{
 
       StorageUploadTask task = FirebaseStorage.instance.ref().child('uid').child(
        DateTime.now().millisecondsSinceEpoch.toString()
@@ -90,25 +90,66 @@ class _UserState extends State<User> {
       
   }
   
-  void pegarImagemGaleria() async {
-     _image = null;
-     var _imageTemp = await ImagePicker.pickImage(source: ImageSource.gallery);
-     setState(() {
-       _image = _imageTemp;
-       if(_image == null){
+  Future<Null> pegarImagemGaleria(BuildContext context) async {
+      setState(() {
+        _image = null;
+      });
+     var _imageTemp2;
+     var pegarImagem = await showDialog<File>(
+       context: context,
+       builder: (context) => SimpleDialog(
+         children: <Widget>[
+           ListTile(
+             leading: Icon(Icons.camera_alt),
+             title: Text("Câmera"),
+             onTap:()async{
+                _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.camera,
+                imageQuality: 20,
+                maxHeight: 640,
+                maxWidth: 480
+                );
+                Navigator.pop(context, _imageTemp2);
+             },
+           ),
+           ListTile(
+             leading: Icon(Icons.image),
+             title: Text("Galeria"),
+             onTap:()async{
+                _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.gallery,
+                imageQuality: 20,
+                maxHeight: 640,
+                maxWidth: 480
+                );
+                Navigator.pop(context, _imageTemp2);
+             },
+           )
+         ],
+       ),
+       );
+     
+    // 
 
+     setState((){
+     
+       _image = _imageTemp2;
+       if(_image == null){
+         Scaffold.of(context).showSnackBar(
+           SnackBar(
+             backgroundColor: Colors.red,
+             content: Text("Por favor, adicione uma foto",style: TextStyle(color: Colors.white),))
+         );
        }else{
        salvarImagem(_image.path);
        _salvarBD(_image);
        }
      });
   }
-  void salvarImagem(path)async{
+  Future<Null> salvarImagem(path)async{
     SharedPreferences saveImage = await SharedPreferences.getInstance();
     saveImage.setString('imagemPath', path);
 
   }
-  void loading()async{
+  Future<Null> loading()async{
      SharedPreferences saveImage = await SharedPreferences.getInstance();
      setState(() {
             _imagemPath = saveImage.getString('imagemPath');
@@ -156,7 +197,7 @@ class _UserState extends State<User> {
                            IconButton(
                               icon: Icon(Icons.edit,),
                               onPressed: () {
-                                pegarImagemGaleria();
+                                pegarImagemGaleria(context);
                               },
                               color: Colors.yellow,
                             ),

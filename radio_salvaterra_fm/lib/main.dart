@@ -1,5 +1,5 @@
 import 'package:radiosalvaterrafm/animacao/bottom_navy_bar.dart';
-import 'package:radiosalvaterrafm/googleSign/sign.dart';
+import 'package:radiosalvaterrafm/Widgets/sign.dart';
 import 'package:radiosalvaterrafm/telas/Principal.dart';
 import 'package:radiosalvaterrafm/telas/chat.dart';
 import 'package:radiosalvaterrafm/telas/user.dart';
