@@ -58,7 +58,6 @@ class _ChatState extends State<Chat> {
 
   Future<Null> _sendMessage({String text, File image}) async{
     final FirebaseUser user = await _getUser();
-
     if(user == null){
       _scaffoldKey.currentState.showSnackBar(
         SnackBar(

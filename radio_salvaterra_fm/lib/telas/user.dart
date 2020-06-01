@@ -146,8 +146,9 @@ class _UserState extends State<User> {
   }
   Future<Null> salvarImagem(path)async{
     SharedPreferences saveImage = await SharedPreferences.getInstance();
-    saveImage.setString('imagemPath', path);
-
+    setState(() {
+       saveImage.setString('imagemPath', path);
+    });
   }
   Future<Null> loading()async{
      SharedPreferences saveImage = await SharedPreferences.getInstance();
