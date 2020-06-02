@@ -72,7 +72,7 @@ class _PrincipalState extends State<Principal> {
                             SnackBar(
                               duration: Duration(seconds: 3),
                               backgroundColor: Colors.amber,
-                              content: Text("Conectando ao servidor",style: TextStyle(color: Colors.blue),
+                              content: Text("Conectando ao servidor",style: TextStyle(color: Colors.white),
                           )));
                         }else if(clicks == 1){
                           estado = "Reproduzir";

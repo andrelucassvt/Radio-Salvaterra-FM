@@ -33,10 +33,10 @@ class _UserState extends State<User> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   var firebaseAuth = FirebaseAuth.instance;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   FirebaseUser _currentUser;
   bool _isloading = false;
 
+  
   
   @override
   void initState() {
@@ -100,7 +100,9 @@ class _UserState extends State<User> {
        builder: (context) => SimpleDialog(
          children: <Widget>[
            ListTile(
-             leading: Icon(Icons.camera_alt),
+             leading: Icon(Icons.camera_alt,
+             color: Colors.red
+             ),
              title: Text("Câmera"),
              onTap:()async{
                 _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.camera,
@@ -112,7 +114,9 @@ class _UserState extends State<User> {
              },
            ),
            ListTile(
-             leading: Icon(Icons.image),
+             leading: Icon(Icons.image,
+             color: Colors.red
+             ),
              title: Text("Galeria"),
              onTap:()async{
                 _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.gallery,
@@ -145,15 +149,15 @@ class _UserState extends State<User> {
      });
   }
   Future<Null> salvarImagem(path)async{
-    SharedPreferences saveImage = await SharedPreferences.getInstance();
-    setState(() {
-       saveImage.setString('imagemPath', path);
+    setState(() async{
+       SharedPreferences saveImage = await SharedPreferences.getInstance();
+       await saveImage.setString('imagemPath', path);
     });
   }
-  Future<Null> loading()async{
-     SharedPreferences saveImage = await SharedPreferences.getInstance();
-     setState(() {
-            _imagemPath = saveImage.getString('imagemPath');
+  Future<String> loading()async{
+     setState(()async {
+            SharedPreferences saveImage = await SharedPreferences.getInstance();
+            return _imagemPath = saveImage.getString('imagemPath');
      });
   }
   //Firebase////////
@@ -318,7 +322,7 @@ class _UserState extends State<User> {
                   )),
                 ],
               )),
-            )
+            ),
           ],
         )),
       );

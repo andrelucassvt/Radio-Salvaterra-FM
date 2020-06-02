@@ -243,7 +243,8 @@ class _TextComponeteState extends State<TextComponete> {
                   builder: (context) => SimpleDialog(
                     children: <Widget>[
                       ListTile(
-                        leading: Icon(Icons.camera_alt),
+                        leading: Icon(Icons.camera_alt,
+                        color: Colors.red),
                         title: Text("Câmera"),
                         onTap:()async{
                            _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.camera,
@@ -255,7 +256,9 @@ class _TextComponeteState extends State<TextComponete> {
                         },
                       ),
                       ListTile(
-                        leading: Icon(Icons.image),
+                        leading: Icon(Icons.image,
+                        color: Colors.red
+                        ),
                         title: Text("Galeria"),
                         onTap:()async{
                            _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.gallery,
