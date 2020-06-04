@@ -48,7 +48,7 @@ class _UserState extends State<User> {
       });
     });
   }
-
+  ///////////////////FIREBASE/////////////////////////////
   Future<FirebaseUser> _getUser() async {
     if (_currentUser != null) return _currentUser;
 
@@ -89,7 +89,7 @@ class _UserState extends State<User> {
         });
       
   }
-  
+  ///FIREBASE FIM/////
   Future<Null> pegarImagemGaleria(BuildContext context) async {
       setState(() {
         _image = null;
@@ -130,8 +130,6 @@ class _UserState extends State<User> {
          ],
        ),
        );
-     
-    // 
 
      setState((){
      
@@ -145,22 +143,31 @@ class _UserState extends State<User> {
        }else{
        salvarImagem(_image.path);
        _salvarBD(_image);
+       Scaffold.of(context).showSnackBar(
+           SnackBar(
+             backgroundColor: Colors.blue,
+             content: Text("Foto adicionada",style: TextStyle(color: Colors.white),))
+         );
        }
      });
   }
+
+  //////SHARED PREFERENCES////////
   Future<Null> salvarImagem(path)async{
-    setState(() async{
-       SharedPreferences saveImage = await SharedPreferences.getInstance();
-       await saveImage.setString('imagemPath', path);
+     SharedPreferences saveImage = await SharedPreferences.getInstance();
+    setState((){
+        saveImage.setString('imagemPath', path);
+        loading();
     });
   }
-  Future<String> loading()async{
-     setState(()async {
-            SharedPreferences saveImage = await SharedPreferences.getInstance();
-            return _imagemPath = saveImage.getString('imagemPath');
+  Future<Null> loading()async{
+      SharedPreferences saveImage = await SharedPreferences.getInstance();
+    setState((){
+          _imagemPath = saveImage.getString('imagemPath');
+          
      });
   }
-  //Firebase////////
+  //////SHARED PREFERENCES////////////
   @override
   Widget build(BuildContext context) {
     if (_currentUser != null) {
@@ -220,8 +227,6 @@ class _UserState extends State<User> {
                         )),
                       ),
                       //Imagem, parte importante
-                     
-                    _imagemPath != null ? 
                      Padding(padding: EdgeInsets.fromLTRB(0, 5, MediaQuery.of(context).size.width/3, 2),
                        child:Container(
                         width: 120,
@@ -230,26 +235,13 @@ class _UserState extends State<User> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.fill,
-                              image: FileImage(File(_imagemPath))
-                          ),
-                        )),
-                     ):
-                     Padding(padding: EdgeInsets.fromLTRB(0, 5, MediaQuery.of(context).size.width/3, 2),
-                       child:Container(
-                        width: 120,
-                        height: 120,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                              fit: BoxFit.fill,
-                              image: _image != null ?
-                              FileImage(_image)
+                              image: _imagemPath != null ?
+                              FileImage(File(_imagemPath))
                               :
                               NetworkImage(url)
                           ),
                         )),
                      )
-                      
                     
                     ],
                   )),

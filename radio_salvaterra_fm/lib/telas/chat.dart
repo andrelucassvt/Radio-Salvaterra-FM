@@ -158,7 +158,6 @@ class ChatMessage extends StatelessWidget  {
 
   final Map<String, dynamic> data;
   final bool mine;
-  
   @override
   Widget build(BuildContext context){
     return Container(
@@ -182,7 +181,24 @@ class ChatMessage extends StatelessWidget  {
             style: TextStyle(fontSize: 17,fontWeight: FontWeight.w500),
             ),
             data["imageURL"] != null ?
-              Image.network(data["imageURL"],width: 250,)
+
+            GestureDetector(
+                child: Container(
+                    width: 120,
+                    height: 120,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: NetworkImage(data["imageURL"]))
+                    )
+                  ),
+                
+                onTap: (){
+                  _showImagem(context, data);
+                },
+            )
+
             :
             Text(data["Texto"],
             textAlign: mine ? TextAlign.end : TextAlign.start,
@@ -200,6 +216,24 @@ class ChatMessage extends StatelessWidget  {
           :
           Container(),
       ],),
+    );
+  }
+
+  void _showImagem(BuildContext context,Map<String, dynamic> data){
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context)=> Scaffold(
+          appBar: AppBar(
+            title: Text("Imagem"),
+            centerTitle: true,
+            backgroundColor: Colors.red,
+          ),
+          body: Center(
+            child: Image.network(data['imageURL']),
+          ),
+
+          )
+        )
     );
   }
 }
@@ -248,7 +282,7 @@ class _TextComponeteState extends State<TextComponete> {
                         title: Text("Câmera"),
                         onTap:()async{
                            _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.camera,
-                            imageQuality: 35,
+                            imageQuality: 55,
                             maxHeight: 640,
                             maxWidth: 480
                            );
@@ -262,7 +296,7 @@ class _TextComponeteState extends State<TextComponete> {
                         title: Text("Galeria"),
                         onTap:()async{
                            _imageTemp2 = await ImagePicker.pickImage(source: ImageSource.gallery,
-                            imageQuality: 35,
+                            imageQuality: 55,
                             maxHeight: 640,
                             maxWidth: 480
                            );
