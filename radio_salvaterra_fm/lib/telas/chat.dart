@@ -79,7 +79,7 @@ class _ChatState extends State<Chat> {
       "uid" : user.uid,
       "sendName": user.displayName,
       "sendPhotourl": img,
-      "Time": DateTime.now().millisecondsSinceEpoch 
+      "Time": FieldValue.serverTimestamp()
     };
 
     if(image != null){
@@ -118,7 +118,7 @@ class _ChatState extends State<Chat> {
       body: Column(children: <Widget>[
         Expanded(
           child:StreamBuilder<QuerySnapshot>(
-            stream: Firestore.instance.collection("Mensagens").orderBy("Time").snapshots(),
+            stream: Firestore.instance.collection("Mensagens").orderBy("Time",descending: false).snapshots(),
             builder: (context, snapshots){
               switch(snapshots.connectionState){
                 case ConnectionState.none:
