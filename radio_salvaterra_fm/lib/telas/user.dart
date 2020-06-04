@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:radiosalvaterrafm/Widgets/developmentInfo.dart';
+import 'package:radiosalvaterrafm/Widgets/radioInformation.dart';
 import 'package:radiosalvaterrafm/Widgets/sign.dart';
 import 'package:path/path.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -168,6 +170,36 @@ class _UserState extends State<User> {
      });
   }
   //////SHARED PREFERENCES////////////
+  
+  ///Sobre o app///
+  void sobreApp(BuildContext context){
+    showDialog(context: context,
+    builder: (context) => SimpleDialog(
+
+      title: Text("Informações:"),
+
+      children: <Widget>[
+
+        ListTile(
+          leading: Icon(Icons.radio,color: Colors.red),
+          title: Text("Rádio Salvaterra FM"),
+          onTap: () => Navigator.push(context, MaterialPageRoute(
+            builder: (BuildContext context)=> RadioInformation())),
+        ),
+
+        ListTile(
+          leading: Icon(Icons.people,color: Colors.red),
+          title: Text("Programadores"),
+          onTap: () => Navigator.push(context, MaterialPageRoute(
+            builder: (BuildContext context)=> DevelopmentInfo())),
+        ),
+
+      ],
+
+    ),
+    );
+  }
+  ///Sobre o app///
   @override
   Widget build(BuildContext context) {
     if (_currentUser != null) {
@@ -283,7 +315,9 @@ class _UserState extends State<User> {
                                 icon: Icon(
                                   Icons.device_unknown,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  sobreApp(context);
+                                },
                               ),
                               Text(
                                 'Sobre o App',
