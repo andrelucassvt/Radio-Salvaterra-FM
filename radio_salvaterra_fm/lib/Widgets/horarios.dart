@@ -148,7 +148,7 @@ class _TransactionFormState extends State<TransactionForm> {
                               ),
                               Image(
                                 image:
-                                AssetImage('assets/images/galeraThree.jpg'),
+                                AssetImage('assets/images/jimi.jpeg'),
                                 width: MediaQuery.of(context).size.width,
                               ),
                               Container(
@@ -165,7 +165,7 @@ class _TransactionFormState extends State<TransactionForm> {
                                   ),
                                 ),
                                 child: Text(
-                                  'De - 13:00 às 15:00 hs – Frequência Jovem (Com Davi Nascimento)',
+                                  'De - 13:00 às 15:00 hs – Frequência Jovem (Jimmy Rafael)',
                                   style: TextStyle(
                                     fontSize: 20,
                                   ),

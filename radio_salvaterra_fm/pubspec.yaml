@@ -38,7 +38,6 @@ dependencies:
   url_launcher: ^5.0.2
   flutter_auth_buttons: ^0.8.0
   intl: ^0.16.1
-  url_audio_stream: ^1.0.0+3
 
 
 
@@ -111,3 +110,4 @@ flutter:
   - assets/images/fogos.jpg
   - assets/images/musical.jpg
   - assets/images/mathias.jpg
+  - assets/images/jimi.jpeg
