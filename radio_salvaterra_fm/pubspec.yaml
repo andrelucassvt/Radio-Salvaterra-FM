@@ -37,6 +37,8 @@ dependencies:
   shared_preferences: ^0.5.7
   url_launcher: ^5.0.2
   flutter_auth_buttons: ^0.8.0
+  intl: ^0.16.1
+  url_audio_stream: ^1.0.0+3
 
 
 
@@ -91,3 +93,21 @@ flutter:
   - 'Imagens/facebookLogo.png'
   - 'Imagens/Eu.jpg'
   - 'Imagens/raimundo.jpeg'
+  - assets/images/galeraOne.jpg
+  - assets/images/galeraTwo.jpg
+  - assets/images/galeraThree.jpg
+  - assets/images/galeraFour.jpg
+  - assets/images/galeraFive.jpg
+  - assets/images/galeraSix.jpg
+  - assets/images/galeraSeven.jpg
+  - assets/images/galeraEight.jpg
+  - assets/images/galeraNine.jpg
+  - assets/images/galeraDeis.jpg
+  - assets/images/galeraOnze.jpg
+  - assets/images/galeraProf.jpg
+  - assets/images/coroa.jpg
+  - assets/images/joaoPena.jpg
+  - assets/images/pastorSilvio.jpg
+  - assets/images/fogos.jpg
+  - assets/images/musical.jpg
+  - assets/images/mathias.jpg

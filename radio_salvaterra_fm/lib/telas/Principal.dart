@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_radio/flutter_radio.dart';
+import 'package:radiosalvaterrafm/Widgets/horarios.dart';
+import 'package:radiosalvaterrafm/Widgets/models/transacao.dart';
+import 'package:url_audio_stream/url_audio_stream.dart';
 ////////////////HOMEPAGE////////////////////////////
 class Principal extends StatefulWidget {
   @override
@@ -10,9 +13,30 @@ int clicks = 0;
 bool playing = true;
 class _PrincipalState extends State<Principal> {
   static const streamUrl =
-      "https://andresalvaterrafm.radio12345.com/";
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+      "https://d6ojw9st89o3o.cloudfront.net/BRGallery/index.php/player/view/flat;65;31;ZDM2bnIwdTN4bWM0bW0uY2xvdWRmcm9udC5uZXQvaW5kZXgucGhwL2FwaS9zdHJlYW1pbmcvc3RhdHVzLzc4NjgvZDUzYTg5MjM0ZDFmNGJmMWVmMzQ0ZmY3NWU3MjVkZWMvc2Vydmlkb3IyMi5icmxvZ2ljLmNvbQ==;true";
+  AudioStream stream = new AudioStream(streamUrl);
+ 
+  ///////ABRIR TELA DE HORARIOS////
+  final List<Transection> _transections = [];
+  _addTransection(String title, double value, DateTime date) {
+    final newTransection = Transection(
+      imagem: title,
+    );
+    setState(() {
+      _transections.add(newTransection);
+    });
+    Navigator.of(context).pop();
+  }
 
+  _openTransectionFormModal(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (_) {
+        return TransactionForm(_addTransection);
+      },
+    );
+  }
+  ///////ABRIR TELA DE HORARIOS////
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -63,8 +87,8 @@ class _PrincipalState extends State<Principal> {
                 child:FlatButton(
                     onPressed: (){
                       setState(() {
-                        FlutterRadio.playOrPause(url: streamUrl);
                         if(clicks == 0){
+                          stream.start();
                           estado = "Parar";
                           clicks++;
                           playing = false;
@@ -75,6 +99,7 @@ class _PrincipalState extends State<Principal> {
                               content: Text("Conectando ao servidor",style: TextStyle(color: Colors.white),
                           )));
                         }else if(clicks == 1){
+                          stream.stop();
                           estado = "Reproduzir";
                           clicks = 0;
                           playing = true;
@@ -94,33 +119,15 @@ class _PrincipalState extends State<Principal> {
                 )
             )
         ),
-        //////////////FIM BOTAO//////////////
-        Container(
-          padding: EdgeInsets.only(bottom: 3),
-          alignment: Alignment.bottomRight,
-          child:IconButton(icon: Icon(Icons.info_outline),
-          onPressed: (){
-            showDialog<String>(context: context,
-            builder: (BuildContext context) => AlertDialog(
-              insetPadding: EdgeInsets.fromLTRB(50, 200, 50, 200),
-              title: Text("Funcionamento:"),
-              content: Column(children: <Widget>[
-                Text("Das 06:00h às 23:00h",style: TextStyle(color: Colors.red),),
-                Text("*Todos os dias*")
-              ],),
-              actions: <Widget>[
-                FlatButton(
-                  child: Text("OK"),
-                  onPressed: ()=> Navigator.pop(context,"OK"),
-                )
-              ],
-            ),
-            );
-          }),
-        )
-        
       ],),
-    )
+    ),
+
+    floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.info_outline),
+        backgroundColor: Colors.red,
+        onPressed: () => _openTransectionFormModal(context),
+      ),
+
     );
   }
 }
