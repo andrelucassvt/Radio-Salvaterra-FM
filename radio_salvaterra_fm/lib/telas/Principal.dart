@@ -10,7 +10,7 @@ int clicks = 0;
 bool playing = true;
 class _PrincipalState extends State<Principal> {
   static const streamUrl =
-      "http://ia802708.us.archive.org/3/items/count_monte_cristo_0711_librivox/count_of_monte_cristo_001_dumas.mp3";
+      "https://andresalvaterrafm.radio12345.com/";
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override

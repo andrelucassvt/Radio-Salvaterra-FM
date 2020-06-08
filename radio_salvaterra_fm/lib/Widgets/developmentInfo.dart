@@ -15,33 +15,26 @@ class DevelopmentInfo extends StatelessWidget {
 
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
 
             //André Lucas
-            Card(
-              elevation:5,
-              child: Container(
-                width: double.infinity,
-                height: 300,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: 100.0,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('Imagens/Eu.jpg') 
-                            )
-                      ),
-                    ),
+                Container(
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage('Imagens/Eu.jpg') 
+                        )
+                  ),
+                ),
 
                     Text("-André Lucas Salvador-",style: TextStyle(fontSize: 20.0),
                         textAlign: TextAlign.center,
                         ),
-                    Text("Acadêmico de ciência da computação.",
+                    Text("Acadêmico de Ciência da Computação.",
                         textAlign: TextAlign.center,
                         ),
                     Text("Desenvolvedor Java.",
@@ -63,31 +56,19 @@ class DevelopmentInfo extends StatelessWidget {
                     Text("(91) 99817-1965",
                         textAlign: TextAlign.center,
                         ),
-                    
-                ],),
-                ),
-              ),
 
-            //Raimumdo
-            Card(
-              elevation:5,
-              child: Container(
-                width: double.infinity,
-                height: 280,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: <Widget>[
-                    Container(
-                      width: 100.0,
-                      height: 100.0,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage('Imagens/raimundo.jpeg') 
-                            )
-                      ),
-                    ),
+            //Raimumdo  
+                Container(
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage('Imagens/raimundo.jpeg') 
+                        )
+                  ),
+                ),
 
                      Text("-Raimundo Neto-",style: TextStyle(fontSize: 20.0),
                         textAlign: TextAlign.center,
@@ -95,7 +76,7 @@ class DevelopmentInfo extends StatelessWidget {
                     Text("Acadêmico de Análise e desenvolvimento de sistemas",
                         textAlign: TextAlign.center,
                         ),
-                    Text("Desenvolvedor Front-end flutter mobile e web",
+                    Text("Desenvolvedor Front-end Flutter mobile e web",
                         textAlign: TextAlign.center,
                         ),
                         Padding(padding: EdgeInsets.all(10)),
@@ -108,11 +89,6 @@ class DevelopmentInfo extends StatelessWidget {
                     Text("(91) 9809-9102",
                         textAlign: TextAlign.center,
                         ),
-                    
-                ],),
-                ),
-              ),
-
 
           ],),),
     );
