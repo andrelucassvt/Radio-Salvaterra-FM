@@ -49,8 +49,8 @@ class _TransactionFormState extends State<TransactionForm> {
                 Column(
                   children: <Widget>[
                     Container(
-                      width: MediaQuery.of(context).size.width,
-                      height: 8000,
+                      width: double.infinity,
+                      height: MediaQuery.of(context).size.height*12.5,
                       child: Column(
                         children: <Widget>[
                           Text(''),
