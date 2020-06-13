@@ -16,6 +16,7 @@ class DevelopmentInfo extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
 
             //André Lucas
