@@ -9,7 +9,7 @@ class Principal extends StatefulWidget {
 }
 String estado = "Reproduzir";
 int clicks = 0;
-bool playing = true;
+bool isPlaying;
 class _PrincipalState extends State<Principal> {
   String streamUrl =
       "https://s09.maxcast.com.br:8214/live";
@@ -32,6 +32,18 @@ class _PrincipalState extends State<Principal> {
         return TransactionForm(_addTransection);
       },
     );
+  }
+    Future playingStatus() async {
+    bool isP = await FlutterRadio.isPlaying();
+    setState(() {
+      isPlaying = isP;
+    });
+  }
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    playingStatus();
   }
   ///////ABRIR TELA DE HORARIOS////
   @override
@@ -68,10 +80,11 @@ class _PrincipalState extends State<Principal> {
         ////////////FIM PARTE DE CIMA//////////////////////////
         
         ////////////////////BOTAO////////////////////
-        Padding(padding: EdgeInsets.all(60),
+        Row(children: <Widget>[
+          Padding(padding: EdgeInsets.only(left: 20,top: 60),
             child:Container(
                 height: 50,
-                width: 200,
+                width: 150,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(30.0)),
                   gradient: LinearGradient(
@@ -84,22 +97,15 @@ class _PrincipalState extends State<Principal> {
                 child:FlatButton(
                     onPressed: (){
                       setState(() {
-                        FlutterRadio.playOrPause(url: streamUrl);
-                        if(clicks == 0){
-                          estado = "Parar";
-                          clicks++;
-                          playing = false;
+                          FlutterRadio.pause(url: streamUrl);
+                          FlutterRadio.play(url: streamUrl);
+                          playingStatus();
                           Scaffold.of(context).showSnackBar(
                             SnackBar(
                               duration: Duration(seconds: 5),
                               backgroundColor: Colors.blue,
                               content: Text("Conectando ao servidor",style: TextStyle(color: Colors.white),
                           )));
-                        }else if(clicks == 1){
-                          estado = "Reproduzir";
-                          clicks = 0;
-                          playing = true;
-                        }
                       });
                     },
                     shape: RoundedRectangleBorder(
@@ -107,14 +113,53 @@ class _PrincipalState extends State<Principal> {
                     ),
                     textColor: Colors.white,
                     child: Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
-                      Text("$estado"),
-                      playing ? Icon(Icons.play_circle_filled): Icon(Icons.pause_circle_filled)
-
+                      Text("Reproduzir"),
+                      Icon(Icons.play_circle_filled)
                     ],)
 
                 )
             )
         ),
+         Padding(padding: EdgeInsets.only(left: 20,top: 60),
+            child:Container(
+                height: 50,
+                width: 150,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  gradient: LinearGradient(
+                      colors: [
+                        Color(0xFFFFC107),
+                        Color(0xFFF44336),
+                      ]
+                  ),
+                ),
+                child:FlatButton(
+                    onPressed: (){
+                      setState(() {
+                          FlutterRadio.pause(url: streamUrl);
+                          playingStatus();
+                          Scaffold.of(context).showSnackBar(
+                            SnackBar(
+                              duration: Duration(seconds: 3),
+                              backgroundColor: Colors.red,
+                              content: Text("Transmissão encerrada",style: TextStyle(color: Colors.white),
+                          )));
+                      });
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30)
+                    ),
+                    textColor: Colors.white,
+                    child: Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
+                      Text("Parar"),
+                      Icon(Icons.pause_circle_filled)
+                    ],)
+
+                )
+            )
+        ),
+        ],)
+        
       ],),
     ),
 

@@ -66,6 +66,9 @@ void bottomTapped(int index) {
       isPlaying = isP;
     });
   }
+  Future<void> audioStop() async {
+    await FlutterRadio.stop();
+  }
    Future<void> audioStart() async {
     await FlutterRadio.audioStart();
     print('Audio Start OK');
@@ -79,8 +82,7 @@ void bottomTapped(int index) {
         children: _pages,
         onPageChanged: (index){
          pageChanged(index);
-        },
-         
+        },  
       ),
 
        bottomNavigationBar: BottomNavyBar(

@@ -87,7 +87,7 @@ class DevelopmentInfo extends StatelessWidget {
                     Text("raimundo.n.neto@hotmail.com",
                         textAlign: TextAlign.center,
                         ),
-                    Text("(91) 9809-9102",
+                    Text("(91) 98089-9102",
                         textAlign: TextAlign.center,
                         ),
 
