@@ -6,6 +6,7 @@ import 'package:radiosalvaterrafm/telas/user.dart';
 import 'package:flutter_radio/flutter_radio.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
+//import 'package:firebase_admob/firebase_admob.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -75,7 +76,11 @@ void bottomTapped(int index) {
   }
    @override
    Widget build(BuildContext context) {
-     return Scaffold(
+     return WillPopScope(
+      onWillPop: () async => false,
+      child:
+     
+      Scaffold(
 
       body: PageView(
         controller: pageController,
@@ -114,7 +119,7 @@ void bottomTapped(int index) {
            ),
          ],
        ),
-
+      )
      );
    }
  }

@@ -39,26 +39,50 @@ class _PrincipalState extends State<Principal> {
       isPlaying = isP;
     });
   }
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    playingStatus();
-  }
   ///////ABRIR TELA DE HORARIOS////
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      /////////////Parte de cima aonde vai ficar a nome/logo////////////
-      body: SingleChildScrollView( 
-      child:Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        ClipPath(
-            clipper: MyClipper(),
-            child:Container(
-              height: MediaQuery.of(context).size.height*0.57,
-              width: double.infinity,
+    /////////////Parte de cima aonde vai ficar a nome/logo////////////
+    body: SingleChildScrollView( 
+    child:Column(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: <Widget>[
+      ClipPath(
+          clipper: MyClipper(),
+          child:Container(
+            height: MediaQuery.of(context).size.height*0.57,
+            width: double.infinity,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  colors: [
+                    Color(0xFFFFC107),
+                    Color(0xFFF44336),
+                  ]
+              ),
+            ),
+
+            child: Stack(alignment: Alignment.center,children: <Widget>[
+                Container(
+                  child: Image.asset('Imagens/Salvaterra.png',
+                            fit: BoxFit.cover,
+                            height: 200,
+                          )
+                  ),
+            ],),
+          )
+      ),
+      ////////////FIM PARTE DE CIMA//////////////////////////
+      
+      ////////////////////BOTAO////////////////////
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+        Padding(padding: EdgeInsets.only(left: 8.0,top: 60),
+          child:Container(
+              height: 50,
+              width: 150,
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(30.0)),
                 gradient: LinearGradient(
                     colors: [
                       Color(0xFFFFC107),
@@ -66,108 +90,80 @@ class _PrincipalState extends State<Principal> {
                     ]
                 ),
               ),
-
-              child: Stack(alignment: Alignment.center,children: <Widget>[
-                  Container(
-                    child: Image.asset('Imagens/Salvaterra.png',
-                              fit: BoxFit.cover,
-                              height: 200,
-                            )
-                    ),
-              ],),
-            )
-        ),
-        ////////////FIM PARTE DE CIMA//////////////////////////
-        
-        ////////////////////BOTAO////////////////////
-        Row(children: <Widget>[
-          Padding(padding: EdgeInsets.only(left: 20,top: 60),
-            child:Container(
-                height: 50,
-                width: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  gradient: LinearGradient(
-                      colors: [
-                        Color(0xFFFFC107),
-                        Color(0xFFF44336),
-                      ]
+              child:FlatButton(
+                  onPressed: (){
+                    setState(() {
+                        FlutterRadio.pause(url: streamUrl);
+                        FlutterRadio.play(url: streamUrl);
+                        playingStatus();
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            duration: Duration(seconds: 5),
+                            backgroundColor: Colors.blue,
+                            content: Text("Conectando ao servidor",style: TextStyle(color: Colors.white),
+                        )));
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)
                   ),
-                ),
-                child:FlatButton(
-                    onPressed: (){
-                      setState(() {
-                          FlutterRadio.pause(url: streamUrl);
-                          FlutterRadio.play(url: streamUrl);
-                          playingStatus();
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              duration: Duration(seconds: 5),
-                              backgroundColor: Colors.blue,
-                              content: Text("Conectando ao servidor",style: TextStyle(color: Colors.white),
-                          )));
-                      });
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)
-                    ),
-                    textColor: Colors.white,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
-                      Text("Reproduzir"),
-                      Icon(Icons.play_circle_filled)
-                    ],)
+                  textColor: Colors.white,
+                  child: Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
+                    Text("Reproduzir"),
+                    Icon(Icons.play_circle_filled)
+                  ],)
 
-                )
-            )
-        ),
-         Padding(padding: EdgeInsets.only(left: 20,top: 60),
-            child:Container(
-                height: 50,
-                width: 150,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                  gradient: LinearGradient(
-                      colors: [
-                        Color(0xFFFFC107),
-                        Color(0xFFF44336),
-                      ]
+              )
+          )
+      ),
+       Padding(padding: EdgeInsets.only(left: 20,top: 60),
+          child:Container(
+              height: 50,
+              width: 150,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                gradient: LinearGradient(
+                    colors: [
+                      Color(0xFFFFC107),
+                      Color(0xFFF44336),
+                    ]
+                ),
+              ),
+              child:FlatButton(
+                  onPressed: (){
+                    setState(() {
+                        FlutterRadio.pause(url: streamUrl);
+                        playingStatus();
+                        Scaffold.of(context).showSnackBar(
+                          SnackBar(
+                            duration: Duration(seconds: 3),
+                            backgroundColor: Colors.red,
+                            content: Text("Transmissão encerrada",style: TextStyle(color: Colors.white),
+                        )));
+                    });
+                  },
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)
                   ),
-                ),
-                child:FlatButton(
-                    onPressed: (){
-                      setState(() {
-                          FlutterRadio.pause(url: streamUrl);
-                          playingStatus();
-                          Scaffold.of(context).showSnackBar(
-                            SnackBar(
-                              duration: Duration(seconds: 3),
-                              backgroundColor: Colors.red,
-                              content: Text("Transmissão encerrada",style: TextStyle(color: Colors.white),
-                          )));
-                      });
-                    },
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30)
-                    ),
-                    textColor: Colors.white,
-                    child: Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
-                      Text("Parar"),
-                      Icon(Icons.pause_circle_filled)
-                    ],)
+                  textColor: Colors.white,
+                  child: Row(mainAxisAlignment: MainAxisAlignment.center,children: <Widget>[
+                    Text("Parar"),
+                    Icon(Icons.pause_circle_filled)
+                  ],)
 
-                )
-            )
-        ),
-        ],)
-        
-      ],),
+              )
+          )
+      ),
+      ],)
+      
+    ],),
     ),
 
     floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.info_outline),
-        backgroundColor: Colors.red,
-        onPressed: () => _openTransectionFormModal(context),
-      ),
+      child: Icon(Icons.info_outline),
+      backgroundColor: Colors.red,
+      onPressed: () => _openTransectionFormModal(context),
+    ),
 
     );
   }
