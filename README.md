@@ -13,5 +13,7 @@ Desenvolvimento de app mobile para uma rádio comunitária na cidade de Salvater
   <p>url_launcher: ^5.0.2</p>
   <p>flutter_auth_buttons: ^0.8.0</p>
   <p>intl: ^0.16.1</p>
-<h1>Tela principal</h1>
-![alt text](https://lh3.googleusercontent.com/cj7Hj-YBhm6T3L0gk9ifcmCERdHJ21tlhVhwRcF5dqwDumljAKTFf57vsql5E-Uotwo=w1366-h657-rw)
+ 
+# Tela principal
+
+![Logo salvaterra](logo-salvaterra.jpg)

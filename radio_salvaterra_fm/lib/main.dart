@@ -6,8 +6,12 @@ import 'package:radiosalvaterrafm/telas/user.dart';
 import 'package:flutter_radio/flutter_radio.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
 import 'package:firebase_admob/firebase_admob.dart';
 
+=======
+//import 'package:firebase_admob/firebase_admob.dart';
+>>>>>>> 87c45aabf21a3a0c28f909546fc0006101195ccc
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
