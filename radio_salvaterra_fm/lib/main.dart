@@ -3,15 +3,11 @@ import 'package:radiosalvaterrafm/Widgets/sign.dart';
 import 'package:radiosalvaterrafm/telas/Principal.dart';
 import 'package:radiosalvaterrafm/telas/chat.dart';
 import 'package:radiosalvaterrafm/telas/user.dart';
+import 'package:radiosalvaterrafm/Widgets/radioInformation.dart';
 import 'package:flutter_radio/flutter_radio.dart';
 import 'dart:async';
-import 'package:flutter/material.dart';
-<<<<<<< HEAD
 import 'package:firebase_admob/firebase_admob.dart';
-
-=======
-//import 'package:firebase_admob/firebase_admob.dart';
->>>>>>> 87c45aabf21a3a0c28f909546fc0006101195ccc
+import 'package:flutter/material.dart';
 void main() {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
@@ -55,54 +51,13 @@ class _HomePageState extends State<HomePage> {
     testDevices: <String>[],
 );
 
-BannerAd myBanner;
-InterstitialAd myInterstitial;
 
-
-void startBanner() {
-    myBanner = BannerAd(
-      adUnitId: BannerAd.testAdUnitId,
-      size: AdSize.fullBanner,
-      targetingInfo: targetingInfo,
-      listener: (MobileAdEvent event) {
-        if (event == MobileAdEvent.opened) {
-          // MobileAdEvent.opened
-          // MobileAdEvent.clicked
-          // MobileAdEvent.closed
-          // MobileAdEvent.failedToLoad
-          // MobileAdEvent.impression
-          // MobileAdEvent.leftApplication
-        }
-        print("BannerAd event is $event");
-      },
-    );
-  }
-
-
-void displayBanner() {
-    myBanner
-      ..load()
-      ..show(
-        anchorOffset: 0.0,
-        anchorType: AnchorType.bottom,
-      );
-  }
-
-@override
-  void dispose() {
-    myBanner?.dispose();
-    myInterstitial?.dispose();
-    super.dispose();
-  }
 
   @override
   void initState() {
     super.initState();
     FirebaseAdMob.instance
     .initialize(appId: "ca-app-pub-3652623512305285~5040470589");
-
-    startBanner();
-    displayBanner();
     _currentIndex = 1;
     audioStart();
     playingStatus();
@@ -123,105 +78,46 @@ void displayBanner() {
     await FlutterRadio.audioStart();
     print('Audio Start OK');
   }
-<<<<<<< HEAD
-=======
-   @override
-   Widget build(BuildContext context) {
-     return WillPopScope(
-      onWillPop: () async => false,
-      child:
-     
-      Scaffold(
-
-      body: PageView(
-        controller: pageController,
-        children: _pages,
-        onPageChanged: (index){
-         pageChanged(index);
-        },  
-      ),
-
-       bottomNavigationBar: BottomNavyBar(
-         selectedIndex: _currentIndex,
-         showElevation: true,
-         itemCornerRadius: 8,
-         curve: Curves.easeInBack,
-         onItemSelected: (index) => setState((){
-           bottomTapped(index);
-         }),
-         items: [
-           BottomNavyBarItem(
-             icon: Icon(Icons.person),
-             title: Text('Usuario'),
-             activeColor: Colors.amberAccent,
-             textAlign: TextAlign.center,
-           ),
-           BottomNavyBarItem(
-             icon: Icon(Icons.radio),
-             title: Text('Radio'),
-             activeColor: Colors.amber[900],
-             textAlign: TextAlign.center,
-           ),
-           BottomNavyBarItem(
-             icon: Icon(Icons.message),
-             title: Text('Chat'),
-             activeColor: Colors.red,
-             textAlign: TextAlign.center,
-           ),
-         ],
-       ),
-      )
-     );
-   }
- }
-
-
-
->>>>>>> 87c45aabf21a3a0c28f909546fc0006101195ccc
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 50),
-      child: WillPopScope(
-        onWillPop: ()async=>false,
-        child: Scaffold(
-          body: PageView(
-            controller: pageController,
-            children: _pages,
-            onPageChanged: (index) {
-              pageChanged(index);
-            },
-          ),
-          bottomNavigationBar: BottomNavyBar(
-            selectedIndex: _currentIndex,
-            showElevation: true,
-            itemCornerRadius: 8,
-            curve: Curves.easeInBack,
-            onItemSelected: (index) => setState(() {
-              bottomTapped(index);
-            }),
-            items: [
-              BottomNavyBarItem(
-                icon: Icon(Icons.person),
-                title: Text('Usuario'),
-                activeColor: Colors.amberAccent,
-                textAlign: TextAlign.center,
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.radio),
-                title: Text('Radio'),
-                activeColor: Colors.amber[900],
-                textAlign: TextAlign.center,
-              ),
-              BottomNavyBarItem(
-                icon: Icon(Icons.message),
-                title: Text('Chat'),
-                activeColor: Colors.red,
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
+    return WillPopScope(
+      onWillPop: ()async=>false,
+      child: Scaffold(
+        body: PageView(
+          controller: pageController,
+          children: _pages,
+          onPageChanged: (index) {
+            pageChanged(index);
+          },
+        ),
+        bottomNavigationBar: BottomNavyBar(
+          selectedIndex: _currentIndex,
+          showElevation: true,
+          itemCornerRadius: 8,
+          curve: Curves.easeInBack,
+          onItemSelected: (index) => setState(() {
+            bottomTapped(index);
+          }),
+          items: [
+            BottomNavyBarItem(
+              icon: Icon(Icons.person),
+              title: Text('Usuario'),
+              activeColor: Colors.amberAccent,
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.radio),
+              title: Text('Radio'),
+              activeColor: Colors.amber[900],
+              textAlign: TextAlign.center,
+            ),
+            BottomNavyBarItem(
+              icon: Icon(Icons.message),
+              title: Text('Chat'),
+              activeColor: Colors.red,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

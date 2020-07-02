@@ -75,7 +75,7 @@ class _PrincipalState extends State<Principal> {
       
       ////////////////////BOTAO////////////////////
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
         Padding(padding: EdgeInsets.only(left: 8.0,top: 60),
           child:Container(
@@ -116,7 +116,7 @@ class _PrincipalState extends State<Principal> {
               )
           )
       ),
-       Padding(padding: EdgeInsets.only(left: 20,top: 60),
+       Padding(padding: EdgeInsets.only(left: 20,top: 60,right: 20),
           child:Container(
               height: 50,
               width: 150,

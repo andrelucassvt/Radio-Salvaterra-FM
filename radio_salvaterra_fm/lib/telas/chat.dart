@@ -5,7 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:image_picker/image_picker.dart';
-
+import 'package:firebase_admob/firebase_admob.dart';
 FirebaseUser _currentUser;
 class Chat extends StatefulWidget {
 
@@ -17,11 +17,30 @@ class _ChatState extends State<Chat> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isloading = false;
+    static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+    keywords: <String>['flutterio', 'beautiful apps'],
+    contentUrl: 'https://flutter.io',
+    childDirected: false,
+    testDevices: <String>[], // Android emulators are considered test devices
+  );
 
+  InterstitialAd myInterstitial = InterstitialAd(
+  adUnitId: 'ca-app-pub-3652623512305285/7872275762',
+  targetingInfo: targetingInfo,
+  listener: (MobileAdEvent event) {
+    print("InterstitialAd event is $event");
+  },
+);
   @override
   void initState(){
     super.initState();
-
+    myInterstitial
+  ..load()
+  ..show(
+    anchorType: AnchorType.bottom,
+    anchorOffset: 0.0,
+    horizontalCenterOffset: 0.0,
+  );
     FirebaseAuth.instance.onAuthStateChanged.listen((user) { 
       setState(() {
          _currentUser = user;

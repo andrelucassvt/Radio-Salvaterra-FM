@@ -24,7 +24,9 @@ Presidente: Alda Nelydia Andrade dos Santos Braga.
       ),
       body:
       SingleChildScrollView(
-      child:Column(children: <Widget>[
+      child:Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: <Widget>[
 
         Container(
           color: Colors.white,
@@ -39,7 +41,65 @@ Presidente: Alda Nelydia Andrade dos Santos Braga.
           width: double.infinity,
           child:Text(text)
           ),
-             
+
+        Text('Presidentes da Associação:',style: TextStyle(fontSize: 20),),
+
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Text('-Nely Andrade e Luis Braga-',style: TextStyle(fontSize: 15),),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 0, bottom: 20),
+          child: Container(
+            height: 200,
+            width: 300,
+            decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage('assets/images/presidentes.jpeg'))
+            ),
+          ),
+        ),
+
+        Text('Diretor Geral:',style: TextStyle(fontSize: 20),),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Text('-Rick Cabral-',style: TextStyle(fontSize: 15),),
+        ),
+        Container(
+          height: 200,
+          width: 200,
+          decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage('assets/images/rick.jpeg'))
+          ),
+        ),
+
+        Text('Diretor de programação:',style: TextStyle(fontSize: 20),),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Text('-Marcelo Nunes-',style: TextStyle(fontSize: 15),),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(top: 0),
+          child: Container(
+            height: 200,
+            width: 300,
+            decoration: BoxDecoration(
+                image: DecorationImage(image: AssetImage('assets/images/galeraEight.jpg'))
+            ),
+          ),
+        ),
+
+        Text('Diretor de departamento:',style: TextStyle(fontSize: 20),),
+        Padding(
+          padding: const EdgeInsets.only(top: 10),
+          child: Text('-Jorge Alves-',style: TextStyle(fontSize: 15),),
+        ),
+        Container(
+          height: 180,
+          width: 300,
+          decoration: BoxDecoration(
+              image: DecorationImage(image: AssetImage('assets/images/galeraSeven.jpg'))
+          ),
+        ),
       ],)),
 
     );
