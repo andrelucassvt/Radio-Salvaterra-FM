@@ -17,7 +17,7 @@ class _ChatState extends State<Chat> {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   bool _isloading = false;
-    static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
+  static const MobileAdTargetingInfo targetingInfo = MobileAdTargetingInfo(
     keywords: <String>['flutterio', 'beautiful apps'],
     contentUrl: 'https://flutter.io',
     childDirected: false,
