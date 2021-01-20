@@ -1,20 +1,11 @@
 import 'package:flutter/material.dart';
-
+import 'package:firebase_admob/firebase_admob.dart';
 class Horarios extends StatefulWidget {
   @override
   _HorariosState createState() => _HorariosState();
 }
 
 class _HorariosState extends State<Horarios> {
-
-
-  Widget lista(String dia, String texto){
-    return Column(
-      children: <Widget>[
-
-      ],
-    );
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,15 +27,15 @@ class _HorariosState extends State<Horarios> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('06:00 às 08:00 - Bom dia Salvaterra(Fernando Silva)'),
+            child: Text('05:00 às 07:00 - Bom dia Salvaterra(Toninho Carrasco)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('08:00 às 11:00 - Alô Salvaterra(Marcelo Nunes)'),
+            child: Text('07:00 às 10:00 - Alô Salvaterra(Marcelo Nunes)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('11:00 às 13:00 - Salvaterra News(Jorge Alves e Etiene Angelim)'),
+            child: Text('10:00 às 13:00 - Salvaterra News(Jorge Alves)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -70,34 +61,33 @@ class _HorariosState extends State<Horarios> {
             padding: const EdgeInsets.all(8.0),
             child: Text('22:00 às 23:00 - Caminhando com Jesus(Silvio Moura)'),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(child: Text('Sábado',style: TextStyle(fontSize: 20),)),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('06:00 às 07:00 - Clube do Rei(Musical)'),
+            child: Text('06:00 às 08:00 - Clube do Rei(Musical)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('07:00 às 09:00 - Salvaterra rural(Jorge Alves)'),
+            child: Text('08:00 às 10:00 - Salvaterra rural(Jorge Alves)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('09:00 às 12:00 - Trio das marcantes(Mathyas e Dj Bruno Silva)'),
+            child: Text('10:00 às 12:00 - Sabadão Show(Dj júnior e Dj Bruno Silva)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('12:00 às 14:00 - Programa do Feroz clássico Tonnysom(Dj Claudinho)'),
+            child: Text('12:00 às 14:00 - Programa do Feroz(Dj Claudinho)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('14:00 às 16:00 - Sabadão show(Dj Bruno Silva e Dj júnior)'),
+            child: Text('14:00 às 16:00 - Batidão 87(Dj Macielzinho)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('16:00 às 18:00 - Batidão 87(Davi nascimento e Dj Marcielzinho)'),
+            child: Text('16:00 às 18:00 - Trio das marcantes(Bruno Mathyas)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -115,11 +105,7 @@ class _HorariosState extends State<Horarios> {
 
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('06:00 às 07:00 - Programação musical'),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('07:00 às 08:00 - Clube do rei'),
+            child: Text('06:00 às 08:00 - Clube do rei(Musical)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -127,11 +113,11 @@ class _HorariosState extends State<Horarios> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('10:00 às 14:00 - Domingo show(Efrain Marajó)'),
+            child: Text('10:00 às 13:00 - Domingo Swing e alegria(Marcelo Nunes)'),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Text('14:00 às 18:00 - Musical 87'),
+            child: Text('13:00 às 19:00 - Programa musical'),
           ),
         ],
       ),

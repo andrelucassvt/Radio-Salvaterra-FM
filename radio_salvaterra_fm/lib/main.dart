@@ -8,7 +8,10 @@ import 'package:flutter_radio/flutter_radio.dart';
 import 'dart:async';
 import 'package:firebase_admob/firebase_admob.dart';
 import 'package:flutter/material.dart';
-void main() {
+import 'package:firebase_core/firebase_core.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+void main()async {
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
     home: HomePage(),

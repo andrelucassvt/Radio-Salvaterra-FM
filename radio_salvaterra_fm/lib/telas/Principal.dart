@@ -83,7 +83,7 @@ class _PrincipalState extends State<Principal> {
                 gradient: LinearGradient(
                     colors: [
                       Color(0xFFFFC107),
-                      Color(0xFFF44336),
+                      Colors.red,
                     ]
                 ),
               ),
